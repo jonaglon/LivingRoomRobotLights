@@ -1,4 +1,4 @@
-const short speedDivisor = 2048;  /* small numbers equals faster strips! */
+const short speedDivisor = 64;  /* small numbers equals faster strips! */
 int currentTwinklePattern = 0;
 int ledToLight;
 
@@ -10,7 +10,7 @@ void doTwinkles() {
 
     if (myTwinkles[twinky].speedy != 0)
     {
-        int ticky = (timeyInTime / speedDivisor)/quickAbsolute(myTwinkles[twinky].speedy);
+        int ticky = (slowTimeyInTime / speedDivisor)/quickAbsolute(myTwinkles[twinky].speedy);
         if (myTwinkles[twinky].speedy < 0) {
           newLedNum = numLedsStrip-((myTwinkles[twinky].ledNum + ticky)%numLedsStrip);
         } else {

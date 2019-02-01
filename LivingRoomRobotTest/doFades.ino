@@ -3,7 +3,7 @@ int myCycle = 0;
 
 void doFades() {  
 
-  myCycle = (timeyInTime / fadeLength)%7;
+  myCycle = (slowTimeyInTime / fadeLength)%7;
 
   if (myCycle == 0) {
     doFading(245,140,7,245,7,225);
@@ -24,7 +24,7 @@ void doFades() {
 
 void doCycles() {  
 
-  myCycle = (timeyInTime / fadeLength)%7;
+  myCycle = (slowTimeyInTime / fadeLength)%7;
   
   if (myCycle == 0) {
     doColour(245,140,7);
@@ -45,7 +45,7 @@ void doCycles() {
  
 
 void doFading(int firstR, int firstG, int firstB, int secondR, int secondG, int secondB) {
-  int myTimey = timeyInTime % fadeLength;
+  int myTimey = slowTimeyInTime % fadeLength;
 
   int newRed = firstR + ((((secondR-firstR)*10000)/fadeLength) * myTimey)/10000;
   int newGreen = firstG + ((((secondG-firstG)*10000)/fadeLength) * myTimey)/10000;

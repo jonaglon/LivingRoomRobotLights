@@ -32,6 +32,7 @@ int timey, animLength;
 
 unsigned int lastBeatTime = 0;
 int timeyInTime; // This is like timey but in time, counting 16384 per beat
+int slowTimeyInTime;
 int twinkleTime;
 int lastBeatLength = 1;
 int percentThroughBeat = 0;  // Not really a percent, beat divides into 16384 parts
@@ -119,7 +120,8 @@ void setTimes() {
 
   // this is a number to be used in animations, it counts up from the start of a tune, 16384 per beat.
   timeyInTime = (((sixteenBeats * 16384) + percentThroughBeat) + (currentBar * 65536))%2147483647;
-  twinkleTime = timeyInTime % animLength;
+  slowTimeyInTime = timeyInTime/16;
+  twinkleTime = slowTimeyInTime % animLength;
 
 }
 
