@@ -10,8 +10,7 @@
 #include<FastLED.h>
 
 const bool testMode = false; 
-
-//change
+const bool beatTestMode = true;
 
 const byte ROWS = 4; //four rows
 const byte COLS = 3; //four columns
@@ -28,8 +27,25 @@ byte colPins[COLS] = {44, 42, 40}; //connect to the column pinouts of the keypad
 //initialize an instance of class NewKeypad
 Keypad customKeypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS); 
 
-int totalTimey;
-int cycle, currentCycle, timey, slowTimey, vSlowTimey, animLength;
+//int timeyInTime;
+int timey, animLength;
+
+unsigned int lastBeatTime = 0;
+int timeyInTime; // This is like timey but in time, counting 16384 per beat
+int twinkleTime;
+int lastBeatLength = 1;
+int percentThroughBeat = 0;  // Not really a percent, beat divides into 16384 parts
+unsigned long fakeBeatCount = 0;
+int fakeBeatLengh = 420;
+// Set by midi in to be 1-16 with beat.
+int sixteenBeats = 0;
+int currentBar = 0;
+int dropCountdown = 0;
+int mixCurrentBar = 0; // This counts from the start of a mix
+int currentGenre = 0;
+int currentTrack = 0;
+bool currentlyMixing = false;
+
 
 bool rainbowTwinkleMode = false;
 
@@ -57,7 +73,6 @@ void setup() {
   // Make random more random
   randomSeed(analogRead(0));
 
-  currentCycle=0;
   animLength=32768; 
 
   LEDS.addLeds<WS2811_PORTD, 4>(rgbwLeds, numLedsStrip); // Hardcoded to ports:25,26,27,28,14,15
@@ -67,12 +82,15 @@ void setup() {
 }
 
 void loop() {
+  timey = millis();
+
+  listenToAbleton();
 
   setTimes();
 
-  //allOneColor(1,1,1);
+  allOneColor(1,1,1);
   //LEDS.show();
-  allOff1();
+  allOff2();
 
   doKeypad();
 
@@ -82,14 +100,29 @@ void loop() {
 
 }
 
+/*
 void setTimes() {
   totalTimey = millis()%2147483647;
   cycle = totalTimey / animLength;
   timey = totalTimey % animLength;
-  slowTimey = (totalTimey / 10) % animLength;
-  vSlowTimey = (totalTimey / 100) % animLength;
+}
+ */ 
+void setTimes() {
+
+  if (timey > (lastBeatTime + lastBeatLength)) {
+    percentThroughBeat = 16383;
+  } else {
+    percentThroughBeat = (((timey - lastBeatTime) * 16384) / lastBeatLength);  // 16384 is the beat length
+    if (percentThroughBeat > 16383)
+      percentThroughBeat = 16383;
+  }
+
+  // this is a number to be used in animations, it counts up from the start of a tune, 16384 per beat.
+  timeyInTime = (((sixteenBeats * 16384) + percentThroughBeat) + (currentBar * 65536))%2147483647;
+  twinkleTime = timeyInTime % animLength;
 
 }
+
 
 struct twinkle {
   short ledNum;

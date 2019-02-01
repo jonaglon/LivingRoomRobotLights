@@ -15,26 +15,26 @@ void doLights() {
   }
 }
 
-int cycleWatch=0;
+int barWatch=0;
 void doAllPatterns() {
-  if (cycleWatch != (cycle%7)) {
-    cycleWatch=(cycle%7);
+  if (barWatch != (currentBar%7)) {
+    barWatch=(currentBar%7);
     
-    if (cycleWatch == 0) {
+    if (barWatch == 0) {
       doFades();
-    } else if (cycleWatch == 1) {
+    } else if (barWatch == 1) {
       setupNewTwinklePattern(1);
-    } else if (cycleWatch == 2) {
+    } else if (barWatch == 2) {
       setupNewTwinklePattern(2);
-    } else if (cycleWatch == 3) {
+    } else if (barWatch == 3) {
       setupNewTwinklePattern(3);
-    } else if (cycleWatch == 4) {    
+    } else if (barWatch == 4) {    
       setupNewTwinklePattern(4);
-    } else if (cycleWatch == 5) {    
+    } else if (barWatch == 5) {    
       setupNewTwinklePattern(5);
-    } else if (cycleWatch == 6) {    
+    } else if (barWatch == 6) {    
       setupNewTwinklePattern(6);
-    } else if (cycleWatch == 7) {    
+    } else if (barWatch == 7) {    
       setupNewTwinklePattern(7);
     }
     
