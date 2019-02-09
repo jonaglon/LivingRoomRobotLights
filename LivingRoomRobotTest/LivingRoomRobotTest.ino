@@ -34,7 +34,7 @@ unsigned int lastBeatTime = 0;
 int timeyInTime; // This is like timey but in time, counting 16384 per beat
 int slowTimeyInTime;
 int twinkleTime;
-int lastBeatLength = 1;
+int lastBeatLength = 420;
 int percentThroughBeat = 0;  // Not really a percent, beat divides into 16384 parts
 unsigned long fakeBeatCount = 0;
 int fakeBeatLengh = 420;
@@ -74,7 +74,7 @@ void setup() {
   // Make random more random
   randomSeed(analogRead(0));
 
-  animLength=32768; 
+  animLength=32768; //8192; //32768; 
 
   LEDS.addLeds<WS2811_PORTD, 4>(rgbwLeds, numLedsStrip); // Hardcoded to ports:25,26,27,28,14,15
   LEDS.setBrightness(100); // 128 good max, 255 actual /max
@@ -119,9 +119,25 @@ void setTimes() {
   }
 
   // this is a number to be used in animations, it counts up from the start of a tune, 16384 per beat.
-  timeyInTime = (((sixteenBeats * 16384) + percentThroughBeat) + (currentBar * 65536))%2147483647;
+  // timeyInTime = (((sixteenBeats * 16384) + percentThroughBeat) + (currentBar * 65536))%2147483647;
+  int currentCalc = ((currentBar-1)/4)*262144;
+  timeyInTime = ((sixteenBeats * 16384) + percentThroughBeat)+currentCalc;
   slowTimeyInTime = timeyInTime/16;
   twinkleTime = slowTimeyInTime % animLength;
+
+  /*  
+  if (testMode) {
+    Serial.print("cc:");
+    Serial.print(currentCalc);
+    Serial.print("  cb:");
+    Serial.print(currentBar);
+    Serial.print("  %:");
+    Serial.print(percentThroughBeat);
+    Serial.print("  16:");
+    Serial.print(sixteenBeats);
+    Serial.print("  tit:");
+    Serial.println(timeyInTime);
+  }*/
 
 }
 

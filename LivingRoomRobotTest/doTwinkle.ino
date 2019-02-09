@@ -45,7 +45,21 @@ void doTwinkles() {
       if (!myTwinkles[twinky].hasTwinked)
         myTwinkles[twinky].hasTwinked = true;
     } else if ((twinkleTime >= (((myTwinkles[twinky].start + myTwinkles[twinky].fadeIn + myTwinkles[twinky].lengthy + myTwinkles[twinky].fadeOut) % animLength))) && myTwinkles[twinky].hasTwinked) {
+      if (testMode) {
+        Serial.print("RESET tw:");
+        Serial.print(twinky);
+        Serial.print(" oldl:");
+        Serial.print(myTwinkles[twinky].ledNum);
+      }
       resetTwink(twinky);
+      if (testMode) {
+        Serial.print("  newl:");
+        Serial.print(myTwinkles[twinky].ledNum);
+        Serial.print("  twinkleT:");
+        Serial.print(twinkleTime);
+        Serial.print("  stt:");
+        Serial.println(myTwinkles[twinky].start);
+      }
     }
   }
 }
@@ -131,6 +145,32 @@ void setLedsFadeIn(int ledNum, int twinky, bool rolledOver) {
   if (rgbwLeds[ledNum].g > newGreen) { newGreen = rgbwLeds[ledNum].g; }
   if (rgbwLeds[ledNum].b > newBlue) { newBlue = rgbwLeds[ledNum].b; }
 
+  /*if (testMode) {
+    if (rolledOver) {
+      Serial.print(".S");
+    } else {
+      Serial.print(" S");
+    }
+    Serial.print("  tt:");
+    Serial.print(twinkleTime);
+    Serial.print("  tit:");
+    Serial.print(timeyInTime);
+    Serial.print("  tw:");
+    Serial.print(twinky);
+    Serial.print("  l:");
+    Serial.print(myTwinkles[twinky].ledNum);
+    Serial.print("  f:");
+    Serial.print(percentThroughFade);
+    Serial.print("%  p:");
+    Serial.print(percentThroughPattern);
+    Serial.print("%   r:");
+    Serial.print(newRed);
+    Serial.print("   b:");
+    Serial.print(newBlue);
+    Serial.print("   g:");
+    Serial.println(newGreen);
+  }*/
+  
   for (int ledToLight = 0; ledToLight < myTwinkles[twinky].widthy; ledToLight++) {
     int minusFade = myTwinkles[twinky].sideFade * ledToLight;
     int offsetPlus = ledNum + ledToLight;
@@ -162,6 +202,32 @@ void setLedsOnFull(int ledNum, int twinky, bool rolledOver) {
   if (rgbwLeds[ledNum].r > newRed) { newRed = rgbwLeds[ledNum].r; }
   if (rgbwLeds[ledNum].g > newGreen) { newGreen = rgbwLeds[ledNum].g; }
   if (rgbwLeds[ledNum].b > newBlue) { newBlue = rgbwLeds[ledNum].b; }
+
+  /*if (testMode) {
+    if (rolledOver) {
+      Serial.print(".M");
+    } else {
+      Serial.print(" M");
+    }
+    Serial.print("  tt:");
+    Serial.print(twinkleTime);
+    Serial.print("  tit:");
+    Serial.print(timeyInTime);
+    Serial.print("  tw:");
+    Serial.print(twinky);
+    Serial.print("  l:");
+    Serial.print(myTwinkles[twinky].ledNum);
+    Serial.print("  f:");
+    Serial.print(percentThroughFade);
+    Serial.print("%  p:");
+    Serial.print(percentThroughPattern);
+    Serial.print("%   r:");
+    Serial.print(newRed);
+    Serial.print("   b:");
+    Serial.print(newBlue);
+    Serial.print("   g:");
+    Serial.println(newGreen);
+  }*/
 
   for (int ledToLight = 0; ledToLight < myTwinkles[twinky].widthy; ledToLight++) {
     int minusFade = myTwinkles[twinky].sideFade * ledToLight;
@@ -203,6 +269,32 @@ void setLedsFadeOut(int ledNum, int twinky, bool rolledOver) {
   if (rgbwLeds[ledNum].r > newRed) { newRed = rgbwLeds[ledNum].r; }
   if (rgbwLeds[ledNum].g > newGreen) { newGreen = rgbwLeds[ledNum].g; }
   if (rgbwLeds[ledNum].b > newBlue) { newBlue = rgbwLeds[ledNum].b; }
+
+  /*if (testMode) {
+    if (rolledOver) {
+      Serial.print(".E");
+    } else {
+      Serial.print(" E");
+    }
+    Serial.print("  tt:");
+    Serial.print(twinkleTime);
+    Serial.print("  tit:");
+    Serial.print(timeyInTime);
+    Serial.print("  tw:");
+    Serial.print(twinky);
+    Serial.print("  l:");
+    Serial.print(myTwinkles[twinky].ledNum);
+    Serial.print("  f:");
+    Serial.print(percentThroughFade);
+    Serial.print("%  p:");
+    Serial.print(percentThroughPattern);
+    Serial.print("%   r:");
+    Serial.print(newRed);
+    Serial.print("   b:");
+    Serial.print(newBlue);
+    Serial.print("   g:");
+    Serial.println(newGreen);
+  }*/
 
   for (int ledToLight = 0; ledToLight < myTwinkles[twinky].widthy; ledToLight++) {
     int minusFade = myTwinkles[twinky].sideFade * ledToLight;

@@ -106,7 +106,9 @@ unsigned long nextBeat = 0;
 
 void doFakeBeatMessageFromAbleton() {
   if (timey > nextBeat) {
-    processMessageFromAbleton(((fakeBeatCount+2)%16)+24, 100, 0);
+    // why the plus two? Is this what happens live?
+    //processMessageFromAbleton(((fakeBeatCount+2)%16)+24, 100, 0);
+    processMessageFromAbleton((fakeBeatCount%16)+24, 100, 0);
     nextBeat = timey+fakeBeatLengh;
     fakeBeatCount++;
   }
