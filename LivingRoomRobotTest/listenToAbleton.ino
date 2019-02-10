@@ -66,7 +66,7 @@ void sixteenBeatWatchFn() {
 
 void processMessageFromAbleton(byte note, byte velocity, int down) {
   if ((note>=24 && note<88) && (velocity == 100)) {
-    sixteenBeats = note - 24; // from 0 to 63 
+    sixteenBeats = (note+7)%16; // from 0 to 63 
 
     setBeatTimes();
     

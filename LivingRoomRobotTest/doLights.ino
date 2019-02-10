@@ -15,6 +15,14 @@ void doLights() {
   }
 }
 
+void lightsBeatTest() {
+  for(int j = 0; j < 17; j++) {
+    if (j ==  sixteenBeats) {
+      setLedDirect(j, 0, 0, 250, 0);    
+    }
+  }
+}
+
 int barWatch=0;
 void doAllPatterns() {
   if (barWatch != (currentBar%7)) {

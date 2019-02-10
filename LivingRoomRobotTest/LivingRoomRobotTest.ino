@@ -10,7 +10,7 @@
 #include<FastLED.h>
 
 const bool testMode = false; 
-const bool beatTestMode = true;
+const bool beatTestMode = false;
 
 const byte ROWS = 4; //four rows
 const byte COLS = 3; //four columns
@@ -66,10 +66,7 @@ byte userColB=20;
 
 
 void setup() {
-  if (testMode) {
-    Serial.begin(9600);
-    Serial.println(" * * Test Mode Start * * ");
-  }
+  Serial.begin(115200);
   
   // Make random more random
   randomSeed(analogRead(0));
@@ -96,6 +93,8 @@ void loop() {
   doKeypad();
 
   doLights();
+
+  lightsBeatTest();
 
   LEDS.show();
 
