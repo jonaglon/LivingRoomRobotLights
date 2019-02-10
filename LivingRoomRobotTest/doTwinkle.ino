@@ -45,21 +45,21 @@ void doTwinkles() {
       if (!myTwinkles[twinky].hasTwinked)
         myTwinkles[twinky].hasTwinked = true;
     } else if ((twinkleTime >= (((myTwinkles[twinky].start + myTwinkles[twinky].fadeIn + myTwinkles[twinky].lengthy + myTwinkles[twinky].fadeOut) % animLength))) && myTwinkles[twinky].hasTwinked) {
-      if (testMode) {
+      /*if (testMode) {
         Serial.print("RESET tw:");
         Serial.print(twinky);
         Serial.print(" oldl:");
         Serial.print(myTwinkles[twinky].ledNum);
-      }
+      }*/
       resetTwink(twinky);
-      if (testMode) {
+      /*if (testMode) {
         Serial.print("  newl:");
         Serial.print(myTwinkles[twinky].ledNum);
         Serial.print("  twinkleT:");
         Serial.print(twinkleTime);
         Serial.print("  stt:");
         Serial.println(myTwinkles[twinky].start);
-      }
+      }*/
     }
   }
 }
