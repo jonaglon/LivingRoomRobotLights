@@ -18,7 +18,10 @@ void doLights() {
 void lightsBeatTest() {
   for(int j = 0; j < 17; j++) {
     if (j ==  sixteenBeats) {
-      setLedDirect(j, 0, 0, 250, 0);    
+      if ((j%4)==0)
+        setLedDirect(j, 250, 0, 0, 0);
+      else
+        setLedDirect(j, 0, 0, 250, 0);
     }
   }
 }

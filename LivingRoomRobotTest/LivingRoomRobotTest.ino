@@ -86,9 +86,9 @@ void loop() {
 
   setTimes();
 
-  allOneColor(1,1,1);
+  //allOneColor(1,1,1);
   //LEDS.show();
-  allOff2();
+  allOff1();
 
   doKeypad();
 
