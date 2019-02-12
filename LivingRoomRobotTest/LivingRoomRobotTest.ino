@@ -74,7 +74,7 @@ void setup() {
   animLength=32768; //8192; //32768; 
 
   LEDS.addLeds<WS2811_PORTD, 4>(rgbwLeds, numLedsStrip); // Hardcoded to ports:25,26,27,28,14,15
-  LEDS.setBrightness(100); // 128 good max, 255 actual /max
+  LEDS.setBrightness(110); // 128 good max, 255 actual /max
 
   setupNewTwinklePattern(1);
 }
@@ -86,15 +86,15 @@ void loop() {
 
   setTimes();
 
-  //allOneColor(1,1,1);
+  allOneColor(0,0,0);
   //LEDS.show();
-  allOff1();
+  //allOff1();
 
   doKeypad();
 
   doLights();
 
-  lightsBeatTest();
+  //lightsBeatTest();
 
   LEDS.show();
 
@@ -167,6 +167,6 @@ struct twinkle {
 
 const int numTwinks = 500;
 twinkle myTwinkles[numTwinks];
-const int usedTwinkleCount[] = {0, 160, 160, 160, 100, 160, 160, 500, 0};
+const int usedTwinkleCount[] = {0, 220, 160, 160, 100, 160, 160, 500, 0};
 
 
