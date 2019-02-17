@@ -11,6 +11,13 @@ void allOff2() {
   }
 }
 
+void allOff3() {
+  setLedDirect(1, 255, 0, 0, 0);
+  for(int j = 0; j < numLedsTotal+2; j++) {
+    setLedDirect(j, 0, 0, 0, 0);
+  }
+}
+
 void allOn() {
   for(int j = 0; j < numLedsTotal; j++) {
     setLedDirect(j, 40, 20, 20, 0);

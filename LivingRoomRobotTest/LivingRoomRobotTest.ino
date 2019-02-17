@@ -71,10 +71,10 @@ void setup() {
   // Make random more random
   randomSeed(analogRead(0));
 
-  animLength=32768; //8192; //32768; 
+  animLength=131072; //524288; // 32768; //8192;
 
   LEDS.addLeds<WS2811_PORTD, 4>(rgbwLeds, numLedsStrip); // Hardcoded to ports:25,26,27,28,14,15
-  LEDS.setBrightness(110); // 128 good max, 255 actual /max
+  LEDS.setBrightness(100); // 128 good max, 255 actual /max
 
   setupNewTwinklePattern(1);
 }
@@ -86,15 +86,13 @@ void loop() {
 
   setTimes();
 
-  allOneColor(0,0,0);
-  //LEDS.show();
-  //allOff1();
+  allOff3();
 
   doKeypad();
 
   doLights();
 
-  //lightsBeatTest();
+  lightsBeatTest();
 
   LEDS.show();
 
@@ -122,12 +120,11 @@ void setTimes() {
   int currentCalc = ((currentBar-1)/4)*262144;
   timeyInTime = ((sixteenBeats * 16384) + percentThroughBeat)+currentCalc;
   slowTimeyInTime = timeyInTime/16;
-  twinkleTime = slowTimeyInTime % animLength;
+  twinkleTime = timeyInTime % animLength;
 
-  /*  
   if (testMode) {
-    Serial.print("cc:");
-    Serial.print(currentCalc);
+    Serial.print("tt:");
+    Serial.print(twinkleTime);
     Serial.print("  cb:");
     Serial.print(currentBar);
     Serial.print("  %:");
@@ -136,7 +133,7 @@ void setTimes() {
     Serial.print(sixteenBeats);
     Serial.print("  tit:");
     Serial.println(timeyInTime);
-  }*/
+  }
 
 }
 
@@ -150,15 +147,15 @@ struct twinkle {
   byte gToCol;
   byte bToCol;
   int start;
-  short lengthy;
+  int lengthy;
   short widthy;
-  short fadeIn;
-  short fadeOut;
+  int fadeIn;
+  int fadeOut;
   short speedy;
   short sideFade;
   bool hasTwinked;
 
-  twinkle(short aLedNum, byte aRCol, byte aGCol, byte aBCol, byte aToRCol, byte aToGCol, byte aToBCol, int aStart, short aLengthy, short aWidthy, short aFadeIn, short aFadeOut, short aSpeedy, short aSideFade, bool aHasTwinked) :
+  twinkle(short aLedNum, byte aRCol, byte aGCol, byte aBCol, byte aToRCol, byte aToGCol, byte aToBCol, int aStart, int aLengthy, short aWidthy, int aFadeIn, int aFadeOut, short aSpeedy, short aSideFade, bool aHasTwinked) :
     ledNum(aLedNum), rCol(aRCol), gCol(aGCol), bCol(aBCol), rToCol(aToRCol), gToCol(aToGCol), bToCol(aToBCol), start(aStart), lengthy(aLengthy), widthy(aWidthy), fadeIn(aFadeIn), fadeOut(aFadeOut), speedy(aSpeedy), sideFade(aSideFade), hasTwinked(aHasTwinked) {  }
 
   twinkle() : ledNum(0), rCol(0), gCol(0), bCol(0), start(0), lengthy(0), widthy(0), fadeIn(0), fadeOut(0), speedy(0), sideFade(0), hasTwinked(0) { }
@@ -167,6 +164,6 @@ struct twinkle {
 
 const int numTwinks = 500;
 twinkle myTwinkles[numTwinks];
-const int usedTwinkleCount[] = {0, 220, 160, 160, 100, 160, 160, 500, 0};
+const int usedTwinkleCount[] = {0, 220, 220, 160, 100, 160, 160, 500, 0};
 
 
