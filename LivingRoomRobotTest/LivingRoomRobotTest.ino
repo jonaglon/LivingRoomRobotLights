@@ -3,13 +3,13 @@
    |    |   |  \  \/ /  |/    \  / ___\|       _//  _ \ /  _ \ /     \|       _//  _ \| __ \ /  _ \   __\    |   |  |/ ___\|  |  \   __\/  ___/
    |    |___|  |\   /|  |   |  \/ /_/  >    |   (  <_> |  <_> )  Y Y  \    |   (  <_> ) \_\ (  <_> )  | |    |___|  / /_/  >   Y  \  |  \___ \ 
    |_______ \__| \_/ |__|___|  /\___  /|____|_  /\____/ \____/|__|_|  /____|_  /\____/|___  /\____/|__| |_______ \__\___  /|___|  /__| /____  >
-        \/                \//_____/        \/                    \/       \/           \/                    \/ /_____/      \/          */
+           \/                \//_____/        \/                    \/       \/           \/                    \/ /_____/      \/          */
 #include<Arduino.h>
 #include<Wire.h>
 #include<Keypad.h>
 #include<FastLED.h>
 
-const bool testMode = false; 
+const bool testMode = false;
 const bool beatTestMode = false;
 
 const byte ROWS = 4; //four rows
@@ -30,13 +30,13 @@ Keypad customKeypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS)
 //int timeyInTime;
 int timey, animLength;
 
-unsigned int lastBeatTime = 0;
+int lastBeatTime = 0;
 int timeyInTime; // This is like timey but in time, counting 16384 per beat
 int slowTimeyInTime;
 int twinkleTime;
 int lastBeatLength = 420;
 int percentThroughBeat = 0;  // Not really a percent, beat divides into 16384 parts
-unsigned long fakeBeatCount = 0;
+int fakeBeatCount = 0;
 int fakeBeatLengh = 420;
 // Set by midi in to be 1-16 with beat.
 int sixteenBeats = 0;
@@ -71,10 +71,10 @@ void setup() {
   // Make random more random
   randomSeed(analogRead(0));
 
-  animLength=131072; //524288; // 32768; //8192;
+  animLength=524288; //524288; // 32768; //8192;
 
-  LEDS.addLeds<WS2811_PORTD, 4>(rgbwLeds, numLedsStrip); // Hardcoded to ports:25,26,27,28,14,15
-  LEDS.setBrightness(100); // 128 good max, 255 actual /max
+  LEDS.addLeds<WS2811_PORTD, 5>(rgbwLeds, numLedsStrip); // Hardcoded to ports:25,26,27,28,14,15
+  LEDS.setBrightness(90); // 128 good max, 255 actual /max
 
   setupNewTwinklePattern(1);
 }
@@ -86,14 +86,24 @@ void loop() {
 
   setTimes();
 
-  allOff3();
+  allOneColor(0, 0, 0);
+  allOff2();
 
   doKeypad();
 
   doLights();
+  if (testMode) {
+    Serial.print("  3:");
+    Serial.print(sixteenBeats);
+  }
 
-  lightsBeatTest();
+  //lightsBeatTest();
+  if (testMode) {
+    Serial.print("  4:");
+    Serial.println(sixteenBeats);
+  }
 
+  //setLedDirect(pixNum, newRed, newGreen, newBlue, 0);
   LEDS.show();
 
 }
@@ -106,6 +116,10 @@ void setTimes() {
 }
  */ 
 void setTimes() {
+  if (testMode) {
+    Serial.print("  1:");
+    Serial.print(sixteenBeats);
+  }
 
   if (timey > (lastBeatTime + lastBeatLength)) {
     percentThroughBeat = 16383;
@@ -132,9 +146,12 @@ void setTimes() {
     Serial.print("  16:");
     Serial.print(sixteenBeats);
     Serial.print("  tit:");
-    Serial.println(timeyInTime);
+    Serial.print(timeyInTime);
   }
-
+  if (testMode) {
+    Serial.print("  2:");
+    Serial.print(sixteenBeats);
+  }
 }
 
 
@@ -164,6 +181,6 @@ struct twinkle {
 
 const int numTwinks = 500;
 twinkle myTwinkles[numTwinks];
-const int usedTwinkleCount[] = {0, 220, 220, 160, 100, 160, 160, 500, 0};
+const int usedTwinkleCount[] = {0, 200, 200, 160, 100, 160, 160, 500, 0};
 
 

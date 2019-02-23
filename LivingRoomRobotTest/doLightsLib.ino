@@ -6,15 +6,18 @@ void allOff1() {
 }
 
 void allOff2() {
-  for(int j = 0; j < numLedsStrip; j++) {
-    setLedDirectStrip(j, 0, 0, 0, 0);
+  for(int j = 0; j < numLedsTotal; j++) {
+    setLedDirect(j, 0, 0, 0, 0);
   }
 }
 
 void allOff3() {
-  setLedDirect(1, 255, 0, 0, 0);
-  for(int j = 0; j < numLedsTotal+2; j++) {
+  int half = numLedsTotal/2;
+  for(int j = 0; j < half; j++) {
     setLedDirect(j, 0, 0, 0, 0);
+  }
+  for(int j = 0; j < half; j++) {
+    setLedDirect(half+j, 0, 0, 0, 0);
   }
 }
 
