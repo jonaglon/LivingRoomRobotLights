@@ -86,40 +86,19 @@ void loop() {
 
   setTimes();
 
-  allOneColor(0, 0, 0);
-  allOff2();
+  allOff1();
 
   doKeypad();
 
   doLights();
-  if (testMode) {
-    Serial.print("  3:");
-    Serial.print(sixteenBeats);
-  }
 
-  //lightsBeatTest();
-  if (testMode) {
-    Serial.print("  4:");
-    Serial.println(sixteenBeats);
-  }
+  lightsBeatTest();
 
-  //setLedDirect(pixNum, newRed, newGreen, newBlue, 0);
   LEDS.show();
 
 }
 
-/*
 void setTimes() {
-  totalTimey = millis()%2147483647;
-  cycle = totalTimey / animLength;
-  timey = totalTimey % animLength;
-}
- */ 
-void setTimes() {
-  if (testMode) {
-    Serial.print("  1:");
-    Serial.print(sixteenBeats);
-  }
 
   if (timey > (lastBeatTime + lastBeatLength)) {
     percentThroughBeat = 16383;
@@ -146,11 +125,7 @@ void setTimes() {
     Serial.print("  16:");
     Serial.print(sixteenBeats);
     Serial.print("  tit:");
-    Serial.print(timeyInTime);
-  }
-  if (testMode) {
-    Serial.print("  2:");
-    Serial.print(sixteenBeats);
+    Serial.println(timeyInTime);
   }
 }
 
@@ -179,8 +154,8 @@ struct twinkle {
 
 };
 
-const int numTwinks = 500;
+const int numTwinks = 1000;
 twinkle myTwinkles[numTwinks];
-const int usedTwinkleCount[] = {0, 200, 200, 160, 100, 160, 160, 500, 0};
+const int usedTwinkleCount[] = {0, 500, 600, 160, 100, 160, 160, 500, 0};
 
 

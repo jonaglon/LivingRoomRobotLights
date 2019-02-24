@@ -11,22 +11,6 @@ void allOff2() {
   }
 }
 
-void allOff3() {
-  int half = numLedsTotal/2;
-  for(int j = 0; j < half; j++) {
-    setLedDirect(j, 0, 0, 0, 0);
-  }
-  for(int j = 0; j < half; j++) {
-    setLedDirect(half+j, 0, 0, 0, 0);
-  }
-}
-
-void allOn() {
-  for(int j = 0; j < numLedsTotal; j++) {
-    setLedDirect(j, 40, 20, 20, 0);
-  }
-}
-
 void allOneColor(int r, int g, int b) {
   for(int j = 0; j < numLedsTotal; j++) {
       setLedDirect(j, r, g, b, 0);

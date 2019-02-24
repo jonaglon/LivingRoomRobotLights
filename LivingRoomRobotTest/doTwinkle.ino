@@ -235,10 +235,6 @@ void setLedsFadeOut(int ledNum, int twinky, bool rolledOver) {
     myTwinkles[twinky].hasTwinked = true;
 }
 
-int u(int newTwinkleLength) {
-  int newRandom = random(0, (animLength - newTwinkleLength));
-  return ((twinkleTime + newRandom) % animLength);
-}
 
 int findNewStart(int newTwinkleLength) {
   int newRandom = random(0, (animLength - newTwinkleLength));
@@ -246,16 +242,35 @@ int findNewStart(int newTwinkleLength) {
 }
 
 int findNewStartInTime() {
-  /*int randomTing = random(2);
-  if (randomTing == 0) {
-    int randomTime = random(16);
-    return 32768*randomTime;
-  } else {*/
-    int randomTime = random(32);
-    return 16384*randomTime;
-  //}  
+  int randomTime = random(32);
+  return 16384*randomTime;
 }
 
+int findNewStartInTime2() {
+  int randomTing = random(3);
+  if (randomTing == 0) {
+    int randomTime = random(8);
+    return 65536*randomTime;
+  } else {
+    int randomTime = random(32);
+    return 16384*randomTime;
+  }
+}
+
+int findLengthInTime() {
+  int randomTing = random(5);
+  if (randomTing == 0) {
+    return 16384;
+  } else if (randomTing == 1) {
+    return 32768;
+  } else if (randomTing == 2) {
+    return 65536;
+  } else if (randomTing == 3) {
+    return 131072;
+  } else {
+    return 262144;
+  }
+}
 
 byte returnRainbowColor(int offset, int minusFade, byte wheelCol) {
   return ((wheelCol-minusFade)+offset)%255;
@@ -270,10 +285,10 @@ void setupTwinkle1(int twinky) {
   myTwinkles[twinky].rToCol =  random(240);
   myTwinkles[twinky].gToCol =  random(150);
   myTwinkles[twinky].bToCol =  random(220);
-  myTwinkles[twinky].lengthy = 65536; // random(16384);
-  myTwinkles[twinky].fadeIn =  0; // 800;
-  myTwinkles[twinky].fadeOut = 0; // random(800);
-  myTwinkles[twinky].start = findNewStart(myTwinkles[twinky].fadeIn+myTwinkles[twinky].lengthy+myTwinkles[twinky].fadeOut); // findNewStartInTime(); 
+  myTwinkles[twinky].lengthy = 65536;
+  myTwinkles[twinky].fadeIn =  8192;
+  myTwinkles[twinky].fadeOut = 0;
+  myTwinkles[twinky].start = findNewStartInTime2();
   myTwinkles[twinky].widthy =  1;
   myTwinkles[twinky].speedy = 0;
   myTwinkles[twinky].sideFade = 0;
@@ -281,6 +296,7 @@ void setupTwinkle1(int twinky) {
 }
 
 void setupTwinkle2(int twinky) {
+
   myTwinkles[twinky].ledNum = random(numLedsStrip);
   myTwinkles[twinky].rCol =  random(240);
   myTwinkles[twinky].gCol =  random(140);
@@ -288,10 +304,10 @@ void setupTwinkle2(int twinky) {
   myTwinkles[twinky].rToCol =  random(240);
   myTwinkles[twinky].gToCol =  random(150);
   myTwinkles[twinky].bToCol =  random(220);
-  myTwinkles[twinky].lengthy = random(5000,20000);
-  myTwinkles[twinky].fadeIn =  random(1000,5000); //
-  myTwinkles[twinky].fadeOut = random(1000,5000); // 
-  myTwinkles[twinky].start = findNewStartInTime(); // findNewStart(myTwinkles[twinky].fadeIn+myTwinkles[twinky].lengthy+myTwinkles[twinky].fadeOut,false); 
+  myTwinkles[twinky].lengthy = findLengthInTime();
+  myTwinkles[twinky].fadeIn =  0;
+  myTwinkles[twinky].fadeOut = 0;
+  myTwinkles[twinky].start = findNewStartInTime2();
   myTwinkles[twinky].widthy =  1;
   myTwinkles[twinky].speedy = random(-30, 30);
   myTwinkles[twinky].sideFade = 0;
