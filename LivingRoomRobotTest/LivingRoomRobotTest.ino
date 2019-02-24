@@ -90,6 +90,8 @@ void loop() {
 
   doKeypad();
 
+  doFades();
+
   doLights();
 
   lightsBeatTest();
@@ -154,8 +156,8 @@ struct twinkle {
 
 };
 
-const int numTwinks = 700;
+const int numTwinks = 1000;
 twinkle myTwinkles[numTwinks];
-const int usedTwinkleCount[] = {0, 700, 600, 600, 600, 660, 660, 500, 0};
+const int usedTwinkleCount[] = {0, 700, 600, 600, 600, 660, 660, 1000, 0};
 
 
